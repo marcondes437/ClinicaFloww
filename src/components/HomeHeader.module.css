@@ -1,0 +1,50 @@
+﻿.header { position: sticky; top: 0; z-index: 30; background: #fff; box-shadow: 0 2px 12px rgb(0 45 80 / 5%); }
+.container { width: min(1400px, 100% - 3rem); margin-inline: auto; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
+.topBar { max-height: 40px; overflow: hidden; background: #06303a; color: #d7eef0; transition: max-height 260ms ease, opacity 180ms ease; }
+.compact .topBar { max-height: 0; opacity: 0; }
+.topNav { display: flex; align-items: stretch; min-width: 0; }
+.topNav a { display: flex; align-items: center; min-height: 40px; padding: 0.6rem 1.3rem; font-size: 0.65rem; text-transform: uppercase; white-space: nowrap; }
+.topNav .institutional { background: #f2795b; color: #fff; font-weight: 700; }
+.topNav a:hover { background: #0b5566; color: #fff; }
+.topAction { flex-shrink: 0; font-size: 0.7rem; color: #91e2e3; }
+.topAction span { margin-left: 0.5rem; }
+.mainBar { min-height: 88px; gap: 1.6rem; }
+.logo { display: inline-flex; flex-shrink: 0; }
+.logo img { display: block; width: 150px; height: 64px; object-fit: contain; }
+.nav { display: flex; align-items: center; justify-content: space-between; flex: 1; gap: 1.3rem; }
+.nav a { padding-block: 0.8rem; color: #172b3b; font-size: 0.9rem; white-space: nowrap; }
+.nav a:hover, .topAction:hover { color: #f2795b; text-decoration: underline; text-underline-offset: 6px; }
+.actions { display: flex; align-items: center; gap: 1.2rem; }
+.search { display: flex; align-items: center; width: 225px; min-height: 43px; border: 1px solid #0e8f9e; border-radius: 999px; color: #0b7080; background: #fff; }
+.search button { display: grid; place-items: center; width: 48px; height: 41px; flex-shrink: 0; padding: 0; border: 0; border-radius: 999px; color: inherit; background: transparent; cursor: pointer; }
+.search svg { width: 23px; height: 23px; }
+.search input { width: 100%; min-width: 0; padding: 0.6rem 0.9rem 0.6rem 0.2rem; border: 0; outline: 0; border-radius: 999px; background: transparent; color: #123654; font: inherit; font-size: 0.8rem; }
+.search input::placeholder { color: #0b7080; opacity: 1; }
+.search:focus-within { outline: 2px solid #6fd0d6; outline-offset: 3px; }
+.patient { display: inline-flex; align-items: center; justify-content: center; gap: 0.65rem; min-height: 48px; padding: 0.75rem 1.1rem; border-radius: 999px; background: #0b5566; color: #fff; font-size: 0.85rem; font-weight: 700; white-space: nowrap; }
+.patient svg { width: 19px; height: 19px; }
+.patient:hover { background: #06303a; }
+.header a:focus-visible, .search button:focus-visible { outline: 2px solid #f2795b; outline-offset: 4px; }
+@media (max-width: 1350px) {
+  .mainBar { flex-wrap: wrap; gap: 0.4rem 1.5rem; padding-block: 0.7rem; }
+  .nav { order: 3; flex-basis: 100%; justify-content: center; gap: 2rem; }
+  .topNav a { padding-inline: 0.9rem; }
+}
+@media (max-width: 760px) {
+  .container { width: calc(100% - 2rem); }
+  .topBar .container { width: 100%; }
+  .topNav { overflow-x: auto; width: 100%; }
+  .topNav a { min-height: 40px; padding-inline: 1rem; }
+  .topAction { display: none; }
+  .mainBar { gap: 0.75rem; padding-block: 0.65rem; }
+  .logo img { width: 125px; height: 52px; }
+  .actions { display: contents; }
+  .patient { min-height: 44px; padding-inline: 0.85rem; font-size: 0.75rem; }
+  .search { order: 2; width: 100%; }
+  .nav { justify-content: flex-start; gap: 1.35rem; overflow-x: auto; }
+  .nav a { font-size: 0.8rem; padding-block: 0.65rem; }
+}
+@media (max-width: 360px) {
+  .logo img { width: 105px; }
+  .patient { gap: 0.4rem; padding-inline: 0.65rem; }
+}

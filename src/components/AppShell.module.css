@@ -1,0 +1,35 @@
+.shell { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+.sidebar {
+  background: linear-gradient(180deg, var(--cx-teal-900), #08414f);
+  color: #cfe6ea; padding: 1.4rem 1rem; display: flex; flex-direction: column; gap: 1.4rem;
+  position: sticky; top: 0; height: 100vh;
+}
+.brand { display: flex; align-items: center; gap: 0.6rem; color: #fff; font-weight: 800; }
+.brandMark { width: 32px; height: 32px; border-radius: 9px; background: rgba(255,255,255,0.16); display: grid; place-items: center; }
+.roleTag {
+  font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em;
+  background: rgba(255,255,255,0.12); padding: 0.25rem 0.6rem; border-radius: 999px; align-self: flex-start;
+}
+.nav { display: grid; gap: 0.25rem; }
+.navLink {
+  padding: 0.6rem 0.75rem; border-radius: 10px; font-size: 0.92rem;
+  color: #cfe6ea; transition: background 0.15s ease, color 0.15s ease;
+}
+.navLink:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.spacer { flex: 1; }
+.userBox { border-top: 1px solid rgba(255,255,255,0.12); padding-top: 1rem; font-size: 0.85rem; }
+.userBox strong { display: block; color: #fff; }
+
+.main { display: flex; flex-direction: column; min-width: 0; }
+.topbar {
+  background: #fff; border-bottom: 1px solid var(--cx-line);
+  padding: 1.1rem 1.8rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+.topbar h1 { font-size: 1.25rem; margin: 0; color: var(--cx-teal-900); }
+.topbar p { margin: 0; font-size: 0.88rem; color: var(--cx-muted); }
+.content { padding: 1.8rem; }
+
+@media (max-width: 900px) {
+  .shell { grid-template-columns: 1fr; }
+  .sidebar { position: static; height: auto; }
+}

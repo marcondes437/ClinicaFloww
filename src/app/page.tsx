@@ -11,6 +11,9 @@ import styles from "./page.module.css";
 
 export const dynamic = "force-dynamic";
 
+type HomeSpecialty = { id: string; nome: string; descricao: string | null };
+type HomeUnit = { id: string; nome: string; endereco: string | null; cidade: string | null; telefone: string | null; horario_funcionamento: string | null };
+
 const BENEFICIOS = [
   { icon: "◎", t: "Prontuário eletrônico", d: "Histórico clínico, evoluções e indicadores organizados por paciente." },
   { icon: "▤", t: "Agenda inteligente", d: "Visões diária, semanal e mensal com status de cada atendimento." },
@@ -40,12 +43,20 @@ const FAQ = [
 ];
 
 export default async function HomePage() {
-  const supabase = await createClient();
+  let especialidades: HomeSpecialty[] = [];
+  let unidades: HomeUnit[] = [];
 
-  const [{ data: especialidades }, { data: unidades }] = await Promise.all([
-    supabase.from("especialidades").select("id, nome, descricao").eq("status", "ativo").order("nome").limit(9),
-    supabase.from("unidades").select("id, nome, endereco, cidade, telefone, horario_funcionamento").eq("status", "ativo"),
-  ]);
+  try {
+    const supabase = await createClient();
+    const [specialtiesResult, unitsResult] = await Promise.all([
+      supabase.from("especialidades").select("id, nome, descricao").eq("status", "ativo").order("nome").limit(9),
+      supabase.from("unidades").select("id, nome, endereco, cidade, telefone, horario_funcionamento").eq("status", "ativo"),
+    ]);
+    especialidades = specialtiesResult.data ?? [];
+    unidades = unitsResult.data ?? [];
+  } catch (error) {
+    console.error("Não foi possível carregar os dados públicos da clínica", error);
+  }
 
   return (
     <>
@@ -96,14 +107,14 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <SpecialtiesSection specialties={especialidades ?? []} />
+      <SpecialtiesSection specialties={especialidades} />
 
 
       <HomeExams />
 
       <DoctorSpace />
 
-      <UnitsSection units={unidades ?? []} />
+      <UnitsSection units={unidades} />
 
       <section id="faq" className={styles.section}>
         <div className="cx-container">

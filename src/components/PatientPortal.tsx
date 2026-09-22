@@ -22,12 +22,9 @@ export default function PatientPortal({
         <span>ClinicaFlow<small>Seu cuidado, sempre perto</small></span>
       </Link>
       <nav className={styles.nav} aria-label="Serviços do paciente">
-        <Link href="/agendamento-online">Novo agendamento</Link>
         <Link href="/paciente/historico">Histórico de atendimentos</Link>
         <Link href="/paciente">Minha agenda</Link>
-        <Link href="/#exames">Exames e check-ups</Link>
         <Link href="/#contato">Fale conosco</Link>
-        <Link href="/procurar-clinica">Buscar médicos</Link>
       </nav>
     </header>
 

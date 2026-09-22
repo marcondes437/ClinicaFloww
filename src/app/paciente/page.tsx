@@ -30,6 +30,17 @@ export default async function PainelPaciente() {
 
   return (
     <>
+      <section className={styles.hero}>
+        <span>Portal do paciente</span>
+        <h2>O que você precisa hoje?</h2>
+        <p>Consulte seus próximos horários ou marque um novo atendimento.</p>
+        <div className={styles.quickActions}>
+          <Link href="/paciente/agendar" className={styles.primaryAction}>Agendar consulta <b aria-hidden="true">→</b></Link>
+          <Link href="/paciente/historico" className={styles.secondaryAction}>Ver meu histórico</Link>
+        </div>
+      </section>
+
+      <div className={styles.sectionLabel}><span>Minha agenda</span><p>Próximo atendimento</p></div>
       <ConsultaTicket consulta={proximasLista[0] ?? null} />
 
       <div className={styles.resumo}>
@@ -45,8 +56,8 @@ export default async function PainelPaciente() {
       </div>
 
       <Panel
-        titulo="Histórico"
-        descricao="Suas consultas anteriores, mais recentes primeiro."
+        titulo="Atendimentos anteriores"
+        descricao="Suas consultas mais recentes aparecem aqui."
         acao={<Link href="/paciente/agendar" className="cx-btn cx-btn-ghost">Agendar outra</Link>}
       >
         <HistoricoTimeline consultas={anterioresLista} />
@@ -54,4 +65,3 @@ export default async function PainelPaciente() {
     </>
   );
 }
-

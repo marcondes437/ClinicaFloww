@@ -6,7 +6,7 @@ export default async function PacienteLayout({ children }: { children: React.Rea
   const user = await requireRole(["paciente"]);
   return (
     <AppShell role="paciente" nome={user.nome} email={user.email} nav={NAV_BY_ROLE.paciente}
-      titulo="Área do paciente" descricao="Seus agendamentos, histórico e informações de saúde.">
+      titulo={`Olá, ${user.nome.split(" ")[0]}`} descricao="Acompanhe suas consultas e cuide da sua saúde em um só lugar.">
       {children}
     </AppShell>
   );

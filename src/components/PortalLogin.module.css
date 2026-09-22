@@ -86,6 +86,12 @@
 
 .form button:hover { background: #075f68; }
 .form button:disabled { cursor: wait; opacity: 0.7; }
+.divider { display: flex; align-items: center; gap: 0.75rem; margin: 0.35rem 0 0; color: #809093; font-size: 0.78rem; }
+.divider::before, .divider::after { content: ""; height: 1px; flex: 1; background: #dce7e5; }
+.form button.googleButton { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; min-height: 50px; margin-top: 0; padding: 12px 16px; border: 1px solid #cecbd0; border-radius: 11px; background: #fff; color: #111; box-shadow: 0 7px 12px rgb(0 0 0 / 12%); font-family: Arial, Helvetica, sans-serif; font-size: 18px; font-weight: 400; line-height: 24px; text-transform: none; letter-spacing: normal; }
+.form button.googleButton:hover:not(:disabled) { background: #fafafa; }
+.form button.googleButton:focus-visible { outline: 2px solid #4285f4; outline-offset: 3px; }
+.googleIcon { display: block; width: 20px; height: 20px; flex: 0 0 20px; }
 .error { border-radius: 0.5rem; background: #fff0f0; color: #a33d3d; padding: 0.75rem; font-size: 0.9rem; }
 .success { border-radius: 0.5rem; background: #edf9f1; color: #257044; padding: 0.75rem; font-size: 0.9rem; }
 .help { margin: 1.5rem 0 0.3rem; font-size: 0.88rem; }

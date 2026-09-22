@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 import type { AppRole } from "@/lib/roles";
 import styles from "./PortalLogin.module.css";
 import PatientPortal from "./PatientPortal";
+import GoogleIcon from "./GoogleIcon";
 
 type PortalLoginProps = {
   role: Extract<AppRole, "medico" | "paciente">;
@@ -69,6 +70,23 @@ export default function PortalLogin({ role }: PortalLoginProps) {
     router.refresh();
   }
 
+  async function loginComGoogle() {
+    setErro(null);
+    setCarregando(true);
+    const supabase = createClient();
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(portal.destination)}`,
+      },
+    });
+
+    if (error) {
+      setErro("Não foi possível iniciar o login com Google.");
+      setCarregando(false);
+    }
+  }
+
   const loginForm = (
     <form onSubmit={onSubmit} className={styles.form}>
       {erro && <div className={styles.error} role="alert">{erro}</div>}
@@ -99,6 +117,11 @@ export default function PortalLogin({ role }: PortalLoginProps) {
 
       <button type="submit" disabled={carregando}>
         {carregando ? "Entrando..." : role === "paciente" ? "Continuar" : "Entrar no portal"}
+      </button>
+      <div className={styles.divider}><span>ou</span></div>
+      <button type="button" className={styles.googleButton} onClick={loginComGoogle} disabled={carregando}>
+        <GoogleIcon className={styles.googleIcon} />
+        <span>Continuar com o Google</span>
       </button>
     </form>
   );

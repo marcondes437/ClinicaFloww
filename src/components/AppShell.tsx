@@ -23,10 +23,11 @@ export default function AppShell({
   children: React.ReactNode;
 }) {
   return (
-    <div className={styles.shell}>
+    <div className={`${styles.shell} ${styles[role]}`}>
       <aside className={styles.sidebar}>
         <Link href="/" className={styles.brand}>
-          <span className={styles.brandMark}>✚</span> ClinicxFlow
+          <img className={styles.brandLogo} src="/fotos/logo-transparente.png" alt="" />
+          <span>ClinicaFlow</span>
         </Link>
         <span className={styles.roleTag}>{ROLE_LABEL[role]}</span>
 

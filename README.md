@@ -116,8 +116,27 @@ mesma vaga. Pacientes não têm permissão para definir diretamente o profission
 
 O botão flutuante Clara aparece nas páginas públicas. Sem configuração de IA, funciona em modo de demonstração com respostas básicas, identificado na interface.
 
-Para ativar respostas por IA, configure `OPENAI_API_KEY` e `OPENAI_MODEL` em `.env.local` (ou nas variáveis do servidor) e reinicie o Next.js. Use um modelo compatível com a Responses API disponível na sua conta. Nunca use o prefixo `NEXT_PUBLIC_` para a chave.
+Para ativar respostas por IA, configure `OPENAI_API_KEY` e, opcionalmente, `OPENAI_MODEL` em `.env.local` (ou nas variáveis do servidor) e reinicie o Next.js. Use um modelo compatível com a Responses API disponível na sua conta. Nunca use o prefixo `NEXT_PUBLIC_` para a chave.
 
 A integração usa a [Responses API](https://developers.openai.com/api/reference/cli/resources/responses/methods/create), com `store: false`. A conversa fica no estado da página, sem gravação no banco ou localStorage. Quando a IA está ativa, o histórico recente é enviado à OpenAI. O assistente orienta sobre navegação e serviços; não acessa dados de pacientes nem realiza agendamentos. A base de orientações fica em `src/lib/assistant.ts`.
 
 O endpoint limita o tamanho do histórico e aplica um limite global de 30 requisições por minuto por processo. Para publicar com múltiplas instâncias, aplique também limitação distribuída no gateway e limites de gastos do provedor. O limite em memória reinicia com o servidor.
+
+### Configuração da Clara
+
+A Clara agora está integrada ao layout público, com respostas em streaming, links internos clicáveis, cópia de respostas, interrupção e nova conversa. O botão fica separado do menu de serviços, inclusive no celular.
+
+Configure no servidor:
+
+```dotenv
+OPENAI_API_KEY=sua-chave-secreta
+OPENAI_MODEL=gpt-6-astra
+```
+
+`OPENAI_MODEL` é opcional: o padrão é `gpt-6-astra`. O modelo precisa estar disponível na conta da API, com faturamento habilitado. Para alterar custo e latência, escolha outro modelo compatível com a Responses API. A chave nunca é enviada ao navegador. Reinicie o servidor após configurar as variáveis; em produção, gere um novo build para atualizar também o indicador inicial de IA.
+
+Sem chave, a interface identifica o modo de demonstração. Com chave inválida ou provedor indisponível, apresenta um erro e permite reenviar a pergunta. Respostas interrompidas são identificadas. Interromper cancela a requisição em andamento, mas o provedor pode cobrar tokens já processados.
+
+A conversa permanece apenas na memória da página. A Clara usa os últimos dez itens (até 1.200 caracteres por item), não consulta prontuários e não executa agendamentos. A API aceita até 64 KB por requisição e mantém o limite global por processo descrito acima.
+
+Referências: [modelo GPT-6 Astra](https://developers.openai.com/api/docs/models/gpt-6-astra) e [streaming da Responses API](https://developers.openai.com/api/docs/guides/streaming-responses).

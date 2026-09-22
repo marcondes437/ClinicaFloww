@@ -4,6 +4,7 @@ import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import PatientPortal from "@/components/PatientPortal";
+import GoogleIcon from "@/components/GoogleIcon";
 import styles from "@/components/PortalLogin.module.css";
 
 function safeRedirect(value: string | null) {
@@ -52,6 +53,24 @@ function CadastroForm() {
     setOk("Conta criada. Confirme o e-mail enviado para ativar seu acesso.");
   }
 
+  async function cadastrarComGoogle() {
+    setErro(null);
+    setCarregando(true);
+    const supabase = createClient();
+    const destino = safeRedirect(params.get("redirect"));
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(destino)}`,
+      },
+    });
+
+    if (error) {
+      setErro("Não foi possível iniciar o cadastro com Google.");
+      setCarregando(false);
+    }
+  }
+
   return (
     <PatientPortal
       accessTitle="Criar conta"
@@ -73,6 +92,11 @@ function CadastroForm() {
 
         <button type="submit" disabled={carregando}>
           {carregando ? "Criando..." : "Criar conta"}
+        </button>
+        <div className={styles.divider}><span>ou</span></div>
+        <button type="button" className={styles.googleButton} onClick={cadastrarComGoogle} disabled={carregando}>
+          <GoogleIcon className={styles.googleIcon} />
+          <span>Continuar com o Google</span>
         </button>
       </form>
     </PatientPortal>

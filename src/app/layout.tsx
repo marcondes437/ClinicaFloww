@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import ServicesWidget from "@/components/ServicesWidget";
+import SiteAssistant from "@/components/SiteAssistant";
+import supportStyles from "@/components/SupportDock.module.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -17,7 +19,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
-      <body>{children}<ServicesWidget /></body>
+      <body>{children}<div className={supportStyles.dock}><ServicesWidget /><SiteAssistant aiEnabled={Boolean(process.env.OPENAI_API_KEY?.trim())} /></div></body>
     </html>
   );
 }

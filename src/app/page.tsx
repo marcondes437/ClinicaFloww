@@ -1,4 +1,3 @@
-﻿import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import HomeCarousel from "@/components/HomeCarousel";
 import HomeHeader from "@/components/HomeHeader";
@@ -7,6 +6,7 @@ import HomeFooter from "@/components/HomeFooter";
 import DoctorSpace from "@/components/DoctorSpace";
 import UnitsSection from "@/components/UnitsSection";
 import SpecialtiesSection from "@/components/SpecialtiesSection";
+import { HomeCareServices, HomeExams } from "@/components/HomeCareSections";
 import styles from "./page.module.css";
 
 export const dynamic = "force-dynamic";
@@ -20,12 +20,6 @@ const BENEFICIOS = [
   { icon: "⌂", t: "Multiunidades", d: "Unidades, especialidades e equipes centralizadas." },
 ];
 
-const EXAMES = ["Hemograma completo", "Eletrocardiograma", "Raio-X", "Ultrassonografia", "Teste ergométrico", "Exames laboratoriais"];
-const CHECKUPS = [
-  { t: "Check-up Essencial", d: "Consulta clínica, exames laboratoriais básicos e orientação preventiva." },
-  { t: "Check-up Cardíaco", d: "Avaliação cardiológica, ECG e teste ergométrico." },
-  { t: "Check-up Mulher", d: "Avaliação ginecológica, exames de rotina e nutrição." },
-];
 const UNIDADES_PARCEIRAS = [
   { nome: "Hospital Israelita Albert Einstein", imagem: "/fotos/unidade-einstein.svg" },
   { nome: "Hospital Sirio-Libanes", imagem: "/fotos/unidade-sirio-libanes.svg" },
@@ -82,44 +76,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className={styles.helpSection}>
-        <div className="cx-container">
-          <div className={styles.helpIntro}>
-            <span className={styles.eyebrow}>Como podemos te ajudar hoje?</span>
-            <h2>Atendimento completo em saúde</h2>
-          </div>
-
-          <div className={styles.helpGrid}>
-            <article className={styles.helpCard}>
-              <div className={styles.helpIcon}>✚</div>
-              <h3>Pronto atendimento</h3>
-              <p>Resposta rápida para urgências e acompanhamento imediato com a equipe certa.</p>
-              <Link href="/procurar-clinica">Saiba mais</Link>
-            </article>
-
-            <article className={styles.helpCard}>
-              <div className={styles.helpIcon}>☰</div>
-              <h3>Diagnósticos</h3>
-              <p>Exames e avaliações com tecnologia para precisão no diagnóstico e no cuidado.</p>
-              <Link href="/procurar-clinica">Saiba mais</Link>
-            </article>
-
-            <article className={styles.helpCard}>
-              <div className={styles.helpIcon}>❤</div>
-              <h3>Cardiologia</h3>
-              <p>Cuidados preventivos, acompanhamento cardíaco e tratamento com excelência.</p>
-              <Link href="/procurar-clinica">Saiba mais</Link>
-            </article>
-
-            <article className={styles.helpCard}>
-              <div className={styles.helpIcon}>☼</div>
-              <h3>Check-up</h3>
-              <p>Programas de prevenção para cuidar da sua saúde com atenção e clareza.</p>
-              <Link href="/procurar-clinica">Saiba mais</Link>
-            </article>
-          </div>
-        </div>
-      </section>
+      <HomeCareServices />
 
       <section className={`${styles.section} ${styles.sectionAlt}`}>
         <div className="cx-container">
@@ -142,30 +99,7 @@ export default async function HomePage() {
       <SpecialtiesSection specialties={especialidades ?? []} />
 
 
-      <section id="exames" className={styles.section}>
-        <div className="cx-container">
-          <div className={styles.sectionHead}>
-            <h2>Exames e check-ups</h2>
-            <p>Serviços diagnósticos e programas preventivos organizados por perfil.</p>
-          </div>
-          <div className={styles.grid3}>
-            {CHECKUPS.map((c) => (
-              <article key={c.t} className={`cx-card ${styles.tile}`}>
-                <div className={styles.tileIcon}>✚</div>
-                <h3>{c.t}</h3>
-                <p>{c.d}</p>
-              </article>
-            ))}
-          </div>
-          <div className={styles.grid4} style={{ marginTop: "1.2rem" }}>
-            {EXAMES.map((e) => (
-              <article key={e} className={`cx-card ${styles.tile}`}>
-                <h3 style={{ fontSize: "0.98rem", marginBottom: 0 }}>{e}</h3>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <HomeExams />
 
       <DoctorSpace />
 

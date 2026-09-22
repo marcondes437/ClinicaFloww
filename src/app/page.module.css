@@ -378,67 +378,6 @@
   color: var(--cx-muted);
 }
 
-.helpSection {
-  background: #f7fbfc;
-  padding: 4rem 0 2rem;
-}
-
-.helpIntro {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.helpIntro h2 {
-  margin: 0.6rem 0 0;
-  font-size: clamp(2.1rem, 2.5vw, 3rem);
-  letter-spacing: -0.05em;
-  color: var(--cx-teal-900);
-}
-
-.helpGrid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1.2rem;
-}
-
-.helpCard {
-  background: #fff;
-  border: 1px solid var(--cx-line);
-  border-radius: 18px;
-  padding: 1.5rem 1.2rem;
-  box-shadow: 0 12px 28px rgba(11, 47, 58, 0.04);
-}
-
-.helpIcon {
-  width: 56px;
-  height: 56px;
-  border-radius: 14px;
-  display: grid;
-  place-items: center;
-  background: linear-gradient(135deg, #def5f1, #dff3ff);
-  color: var(--cx-teal-700);
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-.helpCard h3 {
-  margin: 0 0 0.6rem;
-  color: var(--cx-teal-900);
-  font-size: 1.2rem;
-}
-
-.helpCard p {
-  margin: 0 0 1rem;
-  color: var(--cx-muted);
-  line-height: 1.6;
-}
-
-.helpCard a {
-  color: var(--cx-teal-700);
-  font-weight: 700;
-}
-
 .section {
   padding: 4rem 0;
 }

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import type { AppRole } from "@/lib/roles";
 import styles from "./PortalLogin.module.css";
@@ -36,6 +36,7 @@ const PORTAL = {
 
 export default function PortalLogin({ role }: PortalLoginProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const portal = PORTAL[role];
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -89,7 +90,7 @@ export default function PortalLogin({ role }: PortalLoginProps) {
 
   const loginForm = (
     <form onSubmit={onSubmit} className={styles.form}>
-      {erro && <div className={styles.error} role="alert">{erro}</div>}
+      {(erro || searchParams.get("erro") === "oauth") && <div className={styles.error} role="alert">{erro || "Não foi possível concluir o login com o Google. Tente novamente."}</div>}
       <label htmlFor={`${role}-email`}>{portal.emailLabel}</label>
       <input
         id={`${role}-email`}

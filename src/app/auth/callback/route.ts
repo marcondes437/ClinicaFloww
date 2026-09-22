@@ -2,7 +2,11 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {
-  const { searchParams, origin } = new URL(request.url);
+  const url = new URL(request.url);
+  const { searchParams } = url;
+  const forwardedHost = request.headers.get("x-forwarded-host");
+  const forwardedProtocol = request.headers.get("x-forwarded-proto") ?? "https";
+  const origin = forwardedHost ? `${forwardedProtocol}://${forwardedHost}` : url.origin;
   const code = searchParams.get("code");
   const requestedNext = searchParams.get("next");
   const next =
@@ -11,13 +15,18 @@ export async function GET(request: Request) {
       : "/paciente";
 
   if (code) {
-    const supabase = await createClient();
-    const { error } = await supabase.auth.exchangeCodeForSession(code);
+    try {
+      const supabase = await createClient();
+      const { error } = await supabase.auth.exchangeCodeForSession(code);
 
-    if (!error) {
-      return NextResponse.redirect(new URL(next, origin));
+      if (!error) return NextResponse.redirect(new URL(next, origin));
+      console.error("Falha ao trocar código OAuth", error.message);
+    } catch (error) {
+      console.error("Falha inesperada no callback OAuth", error);
     }
   }
 
-  return NextResponse.redirect(new URL("/portal-paciente?erro=oauth", origin));
+  const errorUrl = new URL("/portal-paciente", origin);
+  errorUrl.searchParams.set("erro", "oauth");
+  return NextResponse.redirect(errorUrl);
 }

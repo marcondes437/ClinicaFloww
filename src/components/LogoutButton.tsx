@@ -9,7 +9,7 @@ export default function LogoutButton() {
   async function sair() {
     const supabase = createClient();
     await supabase.auth.signOut();
-    router.replace("/login");
+    router.replace("/portal-paciente");
     router.refresh();
   }
 

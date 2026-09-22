@@ -2,7 +2,19 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import styles from "./PatientPortal.module.css";
 
-export default function PatientPortal({ children }: { children: ReactNode }) {
+type PatientPortalProps = {
+  children: ReactNode;
+  accessTitle?: string;
+  accessIntro?: string;
+  accessLink?: { href: string; label: string };
+};
+
+export default function PatientPortal({
+  children,
+  accessTitle = "Realizar login",
+  accessIntro = "Acesse com seu e-mail cadastrado.",
+  accessLink = { href: "/cadastro", label: "Me cadastrar" },
+}: PatientPortalProps) {
   return <div className={styles.page}>
     <header className={styles.header}>
       <Link href="/" className={styles.brand} aria-label="ClinicaFlow — página inicial">
@@ -30,11 +42,11 @@ export default function PatientPortal({ children }: { children: ReactNode }) {
         </section>
         <section className={styles.access} aria-labelledby="patient-login-title">
           <div className={styles.card}>
-            <h2 id="patient-login-title">Realizar login</h2>
-            <p className={styles.intro}>Acesse com seu e-mail cadastrado.</p>
+            <h2 id="patient-login-title">{accessTitle}</h2>
+            <p className={styles.intro}>{accessIntro}</p>
             {children}
           </div>
-          <Link href="/cadastro" className={styles.register}>Me cadastrar</Link>
+          <Link href={accessLink.href} className={styles.register}>{accessLink.label}</Link>
           <Link href="/" className={styles.back}>← Voltar para a página inicial</Link>
         </section>
       </div>

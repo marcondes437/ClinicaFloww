@@ -44,7 +44,7 @@ export default function RecuperarSenhaPage() {
           </div>
           <button className={`cx-btn cx-btn-primary ${styles.full}`}>Enviar link</button>
           <div className={styles.links}>
-            <Link href="/login">Voltar ao login</Link>
+            <Link href="/portal-paciente">Voltar ao login</Link>
           </div>
         </form>
       </main>

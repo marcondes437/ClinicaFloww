@@ -45,12 +45,12 @@ export async function updateSession(request: NextRequest) {
 
   if (!userId && isProtected) {
     const url = request.nextUrl.clone();
-    url.pathname = "/login";
+    url.pathname = "/portal-paciente";
     url.searchParams.set("redirect", path);
     return NextResponse.redirect(url);
   }
 
-  if (userId && (isProtected || path === "/login" || path === "/cadastro")) {
+  if (userId && (isProtected || path === "/cadastro")) {
     const { data: roles } = await supabase
       .from("user_roles")
       .select("role")
@@ -59,7 +59,7 @@ export async function updateSession(request: NextRequest) {
     const userRoles = normalizeRoles((roles ?? []).map((r) => r.role));
     const primary = getPrimaryRole(userRoles);
 
-    if (path === "/login" || path === "/cadastro") {
+    if (path === "/cadastro") {
       const url = request.nextUrl.clone();
       url.pathname = HOME_BY_ROLE[primary];
       return NextResponse.redirect(url);

@@ -87,6 +87,7 @@
 .form button:hover { background: #075f68; }
 .form button:disabled { cursor: wait; opacity: 0.7; }
 .error { border-radius: 0.5rem; background: #fff0f0; color: #a33d3d; padding: 0.75rem; font-size: 0.9rem; }
+.success { border-radius: 0.5rem; background: #edf9f1; color: #257044; padding: 0.75rem; font-size: 0.9rem; }
 .help { margin: 1.5rem 0 0.3rem; font-size: 0.88rem; }
 .back { display: inline-block; margin-top: 0.8rem; }
 

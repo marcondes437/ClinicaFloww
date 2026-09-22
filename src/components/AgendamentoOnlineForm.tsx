@@ -20,7 +20,7 @@ export default function AgendamentoOnlineForm() {
       </div>
       <p className={styles.note}>Se você já possui conta, entre para acessar seus dados salvos.</p>
       <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
-        <Link href="/login?redirect=/paciente/agendar" className="cx-btn cx-btn-primary">Entrar e agendar</Link>
+        <Link href="/portal-paciente?redirect=/paciente/agendar" className="cx-btn cx-btn-primary">Entrar e agendar</Link>
         <Link href="/cadastro?redirect=/paciente/agendar" className="cx-btn cx-btn-ghost">Criar conta</Link>
       </div>
     </div>

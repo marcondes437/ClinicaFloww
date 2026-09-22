@@ -41,7 +41,7 @@ export async function getSessionUser(): Promise<SessionUser | null> {
 
 export async function requireRole(allowed: AppRole[]): Promise<SessionUser> {
   const user = await getSessionUser();
-  if (!user) redirect("/login");
+  if (!user) redirect("/portal-paciente");
   if (!user.roles.some((r) => allowed.includes(r))) {
     redirect(HOME_BY_ROLE[user.primaryRole]);
   }

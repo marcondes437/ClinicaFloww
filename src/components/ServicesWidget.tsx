@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import styles from "./ServicesWidget.module.css";
 
-const publicPages = ["/", "/sobre", "/procurar-clinica", "/agendamento-online", "/portal-paciente", "/portal-medico", "/login", "/cadastro", "/recuperar-senha"];
+const publicPages = ["/", "/sobre", "/procurar-clinica", "/agendamento-online", "/portal-paciente", "/portal-medico", "/cadastro", "/recuperar-senha"];
 const whatsapp = "https://wa.me/5511941979206";
 
 function ServiceIcon({ kind }: { kind: "calendar" | "exam" | "chat" | "grid" | "phone" }) {

@@ -17,7 +17,7 @@ export default function NovaSenhaPage() {
     if (error) setErro(error.message);
     else {
       await supabase.auth.signOut();
-      router.replace("/login?senha=alterada");
+      router.replace("/portal-paciente?senha=alterada");
       router.refresh();
     }
   }

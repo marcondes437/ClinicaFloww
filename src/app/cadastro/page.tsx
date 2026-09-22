@@ -1,10 +1,10 @@
 "use client";
 
 import { Suspense, useState } from "react";
-import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import styles from "../login/auth.module.css";
+import PatientPortal from "@/components/PatientPortal";
+import styles from "@/components/PortalLogin.module.css";
 
 function safeRedirect(value: string | null) {
   return value?.startsWith("/") && !value.startsWith("//") ? value : "/paciente";
@@ -53,59 +53,29 @@ function CadastroForm() {
   }
 
   return (
-    <div className={styles.wrap}>
-      <aside className={styles.side}>
-        <Link href="/" className={styles.brand}>
-          <span className={styles.brandMark}>✚</span>
-          <span>ClinicxFlow</span>
-        </Link>
+    <PatientPortal
+      accessTitle="Criar conta"
+      accessIntro="Cadastre-se para acessar sua área do paciente."
+      accessLink={{ href: "/portal-paciente", label: "Já tenho conta" }}
+    >
+      <form onSubmit={onSubmit} className={styles.form}>
+        {erro && <div className={styles.error} role="alert">{erro}</div>}
+        {ok && <div className={styles.success} role="status">{ok}</div>}
 
-        <div className={styles.heroContent}>
-          <h2>Sua saúde acompanhada de perto.</h2>
-          <p>Agende consultas, acompanhe seu histórico e receba lembretes na área do paciente.</p>
-        </div>
+        <label htmlFor="nome">Nome completo</label>
+        <input id="nome" autoComplete="name" required value={form.nome} onChange={(e) => set("nome", e.target.value)} />
 
-        <ul className={styles.list}>
-          <li>• Agendamento online em poucos cliques</li>
-          <li>• Histórico de atendimentos sempre à mão</li>
-          <li>• Resultados disponibilizados pela equipe</li>
-        </ul>
-      </aside>
+        <label htmlFor="email">E-mail</label>
+        <input id="email" type="email" autoComplete="email" required value={form.email} onChange={(e) => set("email", e.target.value)} placeholder="seu@email.com" />
 
-      <main className={styles.panel}>
-        <form className={styles.form} onSubmit={onSubmit}>
-          <h1>Criar conta de paciente</h1>
-          <p className={styles.sub}>Contas de equipe são criadas pelo administrador no painel interno.</p>
+        <label htmlFor="senha">Senha</label>
+        <input id="senha" type="password" autoComplete="new-password" required minLength={6} value={form.senha} onChange={(e) => set("senha", e.target.value)} placeholder="Crie uma senha" />
 
-          {erro && <div className="cx-alert cx-alert-error">{erro}</div>}
-          {ok && <div className="cx-alert cx-alert-ok">{ok}</div>}
-
-          <div className="cx-field">
-            <label htmlFor="nome">Nome completo</label>
-            <input id="nome" required value={form.nome} onChange={(e) => set("nome", e.target.value)} />
-          </div>
-          <div className="cx-field">
-            <label htmlFor="email">E-mail</label>
-            <input id="email" type="email" required value={form.email} onChange={(e) => set("email", e.target.value)} />
-          </div>
-          <div className="cx-field">
-            <label htmlFor="senha">Senha</label>
-            <input id="senha" type="password" required minLength={6} value={form.senha} onChange={(e) => set("senha", e.target.value)} />
-          </div>
-
-          <div className={styles.actions}>
-            <button className={`cx-btn cx-btn-primary ${styles.full}`} disabled={carregando}>
-              {carregando ? "Criando..." : "Criar conta"}
-            </button>
-          </div>
-
-          <div className={styles.links}>
-            <Link href="/">Voltar ao site</Link>
-            <Link href="/login">Já tenho conta</Link>
-          </div>
-        </form>
-      </main>
-    </div>
+        <button type="submit" disabled={carregando}>
+          {carregando ? "Criando..." : "Criar conta"}
+        </button>
+      </form>
+    </PatientPortal>
   );
 }
 

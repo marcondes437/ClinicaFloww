@@ -6,7 +6,7 @@ import styles from "./SiteAssistant.module.css";
 
 type Message = { role: "user" | "assistant"; content: string };
 const greeting: Message = { role: "assistant", content: "Olá! Sou a Clara, assistente virtual da ClinicaFlow. Como posso ajudar você hoje?" };
-const publicPages = ["/", "/sobre", "/procurar-clinica", "/agendamento-online", "/portal-paciente", "/portal-medico", "/login", "/cadastro", "/recuperar-senha"];
+const publicPages = ["/", "/sobre", "/procurar-clinica", "/agendamento-online", "/portal-paciente", "/portal-medico", "/cadastro", "/recuperar-senha"];
 function ChatIcon() { return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-8 8H4l1.5-4A8 8 0 1 1 20 11.5Z" /><path d="M8 10h8M8 14h5" /></svg>; }
 export default function SiteAssistant({ aiEnabled }: { aiEnabled: boolean }) {
   const pathname = usePathname();
